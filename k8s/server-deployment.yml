@@ -17,3 +17,14 @@ spec:
                 image: nomanaadma/multi-server
                 ports:
                   - containerPort: 5000
+                env:
+                  - name: REDIS_HOST
+                    value: redis-cluster-ip-service
+                  - name: REDIS_PORT
+                    value: 6379
+                  - name: PGUSER
+                    value: postgres
+                  - name: PGHOST
+                    value: postgres-cluster-ip-service
+                  - name: PGDATABASE
+                    value: postgres
