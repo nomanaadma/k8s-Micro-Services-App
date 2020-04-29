@@ -18,7 +18,7 @@ before_install:
   - docker build -t nomanaadma/react-test -f ./client/dockerfile.dev ./client
 
 script:
-  - docker run nomanaadma/react-test npm test -- --coverage
+  - docker run -e CI=true nomanaadma/docker-react npm run test
 
 deploy:
   provider: script
