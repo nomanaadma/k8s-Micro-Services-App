@@ -1,0 +1,37 @@
+apiVersion: skaffold/v2beta2
+kind: Config
+build:
+  local:
+    push: false
+  artifacts:
+    - image: nomanaadma/multi-client
+      context: client
+      docker:
+        dockerfile: dockerfile.dev
+      sync:
+        infer:
+          - '**/*.js'
+          - '**/*.css'
+          - '**/*.html'
+    - image: nomanaadma/multi-server
+      context: server
+      docker:
+        dockerfile: dockerfile.dev
+      sync:
+        infer:
+          - '**/*.js'
+    - image: nomanaadma/multi-worker
+      context: worker
+      docker:
+        dockerfile: dockerfile.dev
+      sync:
+        infer:
+          - '**/*.js'
+deploy:
+  kubectl:
+    manifests:
+      - k8s/client-deployment.yml
+      - k8s/server-deployment.yml
+      - k8s/worker-deployment.yml
+      - k8s/client-cluster-ip-service.yml
+      - k8s/server-cluster-ip-service.yml
